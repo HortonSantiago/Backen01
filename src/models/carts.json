@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Pizza Margarita",
+    "description": "Tomate, mozzarella y albahaca",
+    "price": 10.99,
+    "img": "url_imagen_margarita",
+    "code": "marg001",
+    "stock": 20
+  },
+  {
+    "id": 2,
+    "title": "Pizza Pepperoni",
+    "description": "Tomate, mozzarella y pepperoni",
+    "price": 12.99,
+    "img": "url_imagen_pepperoni",
+    "code": "pep002",
+    "stock": 18
+  }
+]
