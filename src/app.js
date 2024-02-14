@@ -8,6 +8,11 @@ const viewsRouter = require("./routes/views.router.js");
 const exphbs = require("express-handlebars");
 const multer = require("multer");
 
+const http = require("http");
+const socket = require("socket.io");
+const httpServer = http.createServer(app); // Mover esta línea arriba y pasarle app como argumento
+const io = socket(httpServer); // Ahora httpServer ya tiene un valor
+
 // Para guardar correctamente los archivos podemos configurar el storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -48,6 +53,17 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Something went wrong!" });
 });
 
-app.listen(PORT, () => {
+//5) configuramos el primer evento, que es el "connection"
+io.on("connection", (socket) => {
+  console.log("un cliente se conecto");
+
+  socket.on("mensaje", (data) => {
+    console.log(data);
+    io.sockets.emit("mensaje", data);
+  });
+  socket.emit("saludito", "hola cliente como estas?");
+});
+
+httpServer.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
